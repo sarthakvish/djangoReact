@@ -3,6 +3,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {Container, Nav, Navbar, Row, NavDropdown} from "react-bootstrap";
 import {LinkContainer} from "react-router-bootstrap";
 import {logout} from "../actions/userActions";
+import SearchBox from "./SearchBox";
 
 function Header() {
     const userLogin = useSelector(state => state.userLogin)
@@ -24,6 +25,7 @@ function Header() {
 
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav">
+                            <SearchBox/>
                             <Nav className="ml-auto">
                                 <LinkContainer to='/cart'>
                                     <Nav.Link><i className="fas fa-shopping-cart"></i>Cart</Nav.Link>
@@ -43,7 +45,26 @@ function Header() {
                                     </LinkContainer>
                                 )}
 
-                                
+                                {userInfo && userInfo.isAdmin && (
+                                    <NavDropdown title='Admin' id='adminmenu'>
+                                        <LinkContainer to='/admin/userlist'>
+                                            <NavDropdown.Item>Users</NavDropdown.Item>
+                                        </LinkContainer>
+
+                                        <LinkContainer to='/admin/productlist'>
+                                            <NavDropdown.Item>Product</NavDropdown.Item>
+                                        </LinkContainer>
+
+                                        <LinkContainer to='/admin/orderlist'>
+                                            <NavDropdown.Item>Orders</NavDropdown.Item>
+                                        </LinkContainer>
+
+
+                                    </NavDropdown>
+                                )}
+
+
+
                             </Nav>
 
                         </Navbar.Collapse>
